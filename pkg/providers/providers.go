@@ -16,6 +16,7 @@ import (
 	"github.com/projectdiscovery/notify/pkg/providers/teams"
 	"github.com/projectdiscovery/notify/pkg/providers/telegram"
 	"github.com/projectdiscovery/notify/pkg/types"
+	"github.com/projectdiscovery/notify/pkg/providers/kakaotalk"
 	sliceutil "github.com/projectdiscovery/utils/slice"
 )
 
@@ -30,6 +31,7 @@ type ProviderOptions struct {
 	GoogleChat []*googlechat.Options `yaml:"googlechat,omitempty"`
 	Custom     []*custom.Options     `yaml:"custom,omitempty"`
 	Gotify     []*gotify.Options     `yaml:"gotify,omitempty"`
+	Kakaotalk  []*kakaotalk.Options  `yaml:"kakaotalk,omitempty"`
 }
 
 // Provider is an interface implemented by providers
@@ -119,6 +121,15 @@ func New(providerOptions *ProviderOptions, options *types.Options) (*Client, err
 		provider, err := gotify.New(providerOptions.Gotify, options.IDs)
 		if err != nil {
 			return nil, errors.Wrap(err, "could not create gotify provider client")
+		}
+		client.providers = append(client.providers, provider)
+	}
+
+	if providerOptions.Kakaotalk != nil && (len(options.Providers) == 0 || sliceutil.Contains(options.Providers, "kakaotalk")) {
+
+		provider, err := kakaotalk.New(providerOptions.Kakaotalk, options.IDs)
+		if err != nil {
+			return nil, errors.Wrap(err, "could not create kakaotalk provider client")
 		}
 		client.providers = append(client.providers, provider)
 	}

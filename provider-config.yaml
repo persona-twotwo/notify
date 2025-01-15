@@ -1,0 +1,12 @@
+discord:
+  - id: "discord-notify"
+    discord_webhook_url: "https://discord.com/api/webhooks/1324978963344392203/DwQpie0dVjg_XH48xoPaarOazkRgKWiTk8oZIo0pVXNLpF06H5slrsr0I1eFr1wkpENf"
+    discord_format: "{{data}}"
+    discord_username: "커스텀 봇 이름"
+    discord_embed: true 
+
+kakaotalk:
+  - id: "kakaotalk-notify"
+    kakaotalk_api_key: "a34e59e4b51dffdc77f998ca9e51badd"
+    kakaotalk_ouath_web_port: "12345"
+    kakaotalk_format: "{{data}}"
